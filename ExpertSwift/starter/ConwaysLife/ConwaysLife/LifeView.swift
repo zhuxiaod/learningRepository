@@ -17,22 +17,22 @@ struct SizeKey: PreferenceKey {
 struct LifeView: View {
   @ObservedObject var model: LifeSimulation
   @State private var imageSize: CGSize?
-
+  
   /// Drag gesture that lets you draw cells
   var drag: some Gesture {
     DragGesture(minimumDistance: 0, coordinateSpace: .local)
       .onChanged { drag in
         guard let imageSize = imageSize else { return }
         let column = Int(drag.location.x /
-                          imageSize.width *
-                          CGFloat(model.cells.width))
+                         imageSize.width *
+                         CGFloat(model.cells.width))
         let row = Int(drag.location.y /
-                        imageSize.height *
-                        CGFloat(model.cells.height))
+                      imageSize.height *
+                      CGFloat(model.cells.height))
         model.setLive(row: row, column: column)
       }
   }
-
+  
   // View showing the simulation and some controls.
   var body: some View {
     VStack {
@@ -52,18 +52,18 @@ struct LifeView: View {
       Spacer()
       HStack {
         Group {
-        Button("Clear") {
-          model.clear()
-        }
-        Button(model.isRunning ? "Stop" : "Start") {
-          model.isRunning.toggle()
-        }
+          Button("Clear") {
+            model.clear()
+          }
+          Button(model.isRunning ? "Stop" : "Start") {
+            model.isRunning.toggle()
+          }
         }.frame(width: 100)
-        .padding()
-        .background(Color.blue)
-        .cornerRadius(10)
-        .foregroundColor(Color.white)
-        .font(.headline)
+          .padding()
+          .background(Color.blue)
+          .cornerRadius(10)
+          .foregroundColor(Color.white)
+          .font(.headline)
       }
     }.padding()
   }
